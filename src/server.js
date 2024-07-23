@@ -23,7 +23,11 @@ export function setupServer() {
       const contactsAll = await getAllContacts();
       res
         .status(200)
-        .send({ message: 'Successfully found contacts!', data: contactsAll });
+        .send({
+          status: 200,
+          message: 'Successfully found contacts!',
+          data: contactsAll,
+        });
     } catch (error) {
       console.error(error);
       throw error;
