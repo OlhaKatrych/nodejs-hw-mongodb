@@ -15,7 +15,7 @@ export async function getContactByIdController(req, res, next) {
   const { contactId } = req.params;
   const contactById = await getContactById(contactId);
   if (contactById === null) {
-    return next(createHttpError(404, 'Student is not found'));
+    return next(createHttpError(404, 'Contact not found'));
   }
   res.status(200).json({ data: contactById });
 }

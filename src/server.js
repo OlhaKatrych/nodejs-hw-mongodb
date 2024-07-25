@@ -4,6 +4,8 @@ import pino from 'pino-http';
 
 import { env } from '../src/utils/env.js';
 import contactsRouter from './routers/contacts.js';
+import { errorHandler } from '../src/middlewares/errorHandler.js';
+import { notFoundHandler } from '../src/middlewares/notFoundHandler.js';
 
 const PORT = Number(env('PORT', 8080));
 
@@ -20,9 +22,10 @@ export function setupServer() {
 
   app.use(contactsRouter);
 
-  app.use('*', (req, res, next) => {
-    res.status(404).json({ message: 'Not found' });
-  });
+  app.use('*', notFoundHandler);
+
+  app.use(errorHandler);
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });

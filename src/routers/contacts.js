@@ -4,12 +4,13 @@ import {
   getAllContactsContoller,
   getContactByIdController,
 } from '../controllers/contacts.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = express.Router();
 
 const jsonParser = express.json();
 
-router.get('/contacts', getAllContactsContoller);
-router.get('/contacts/:contactId', getContactByIdController);
+router.get('/contacts', ctrlWrapper(getAllContactsContoller));
+router.get('/contacts/:contactId', ctrlWrapper(getContactByIdController));
 
 export default router;
