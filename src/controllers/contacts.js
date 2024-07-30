@@ -44,8 +44,15 @@ export async function createContactController(req, res) {
 
 export async function changeContactNameController(req, res, next) {
   const { contactId } = req.params;
-  const newName = req.body.name;
-  const changeContact = await changeContactName(contactId, newName);
+  const contact = {
+    name: req.body.name,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    isFavourite: req.body.isFavourite,
+    contactType: req.body.contactType,
+  };
+
+  const changeContact = await changeContactName(contactId, contact);
   if (changeContact === null) {
     return next(createHttpError(404, 'Contact not found'));
   }

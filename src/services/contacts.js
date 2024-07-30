@@ -15,10 +15,10 @@ export async function createContact(payload) {
   return newContact;
 }
 
-export async function changeContactName(contactId, name) {
+export async function changeContactName(contactId, contact, options = {}) {
   const changeContact = await contacts.findOneAndUpdate(
     { _id: contactId },
-    { name: name },
+    contact,
     { new: true },
   );
   return changeContact;
