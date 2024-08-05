@@ -9,11 +9,17 @@ import {
 } from '../services/contacts.js';
 
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
 
 export async function getAllContactsContoller(req, res) {
   const { page, perPage } = parsePaginationParams(req.query);
-  const contactsAll = await getAllContacts({ page, perPage });
-  console.log(contactsAll);
+  const { sortOrder, sortBy } = parseSortParams(req.query);
+  const contactsAll = await getAllContacts({
+    page,
+    perPage,
+    sortOrder,
+    sortBy,
+  });
   res.status(200).send({
     status: 200,
     message: 'Successfully found contacts!',
