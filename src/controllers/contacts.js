@@ -8,8 +8,12 @@ import {
   deleteContact,
 } from '../services/contacts.js';
 
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+
 export async function getAllContactsContoller(req, res) {
-  const contactsAll = await getAllContacts();
+  const { page, perPage } = parsePaginationParams(req.query);
+  const contactsAll = await getAllContacts({ page, perPage });
+  console.log(contactsAll);
   res.status(200).send({
     status: 200,
     message: 'Successfully found contacts!',
