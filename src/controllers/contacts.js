@@ -32,15 +32,17 @@ export async function getAllContactsContoller(req, res) {
 }
 
 export async function getContactByIdController(req, res, next) {
+  console.log(req.user);
   const { contactId } = req.params;
-  const contactById = await getContactById(contactId);
+  const userId = req.user._id;
+  const contactById = await getContactById(contactId, userId);
   console.log(contactById);
   if (contactById === null) {
     return next(createHttpError(404, 'Contact not found'));
   }
 
   if (contactById.userId.toString() !== req.user._id.toString()) {
-    return next(createHttpError(403, 'Student not allowed'));
+    return next(createHttpError(403, 'Contact not allowed'));
   }
   res.status(200).json({
     status: 200,
@@ -85,7 +87,7 @@ export async function changeContactNameController(req, res, next) {
     return next(createHttpError(404, 'Contact not found'));
   }
   if (changeContact.userId.toString() !== req.user._id.toString()) {
-    return next(createHttpError(403, 'Student not allowed'));
+    return next(createHttpError(403, 'Contact not allowed'));
   }
   res.status(200).json({
     status: 200,
@@ -101,7 +103,7 @@ export async function deleteContactController(req, res, next) {
     return next(createHttpError(404, `Contact is not found`));
   }
   if (contact.userId.toString() !== req.user._id.toString()) {
-    return next(createHttpError(403, 'Student not allowed'));
+    return next(createHttpError(403, 'Contact not allowed'));
   }
   res.status(204).send();
 }
