@@ -52,15 +52,14 @@ export async function changeContactName(
   options = {},
 ) {
   const changeContact = await contacts.findOneAndUpdate(
-    { _id: contactId },
+    { _id: contactId, userId },
     contact,
-    userId,
     { new: true },
   );
   return changeContact;
 }
 
-export async function deleteContact(contactId) {
-  const contact = await contacts.findOneAndDelete({ _id: contactId });
+export async function deleteContact(contactId, userId) {
+  const contact = await contacts.findOneAndDelete({ _id: contactId, userId });
   return contact;
 }

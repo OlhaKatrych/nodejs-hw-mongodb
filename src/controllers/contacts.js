@@ -38,12 +38,9 @@ export async function getContactByIdController(req, res, next) {
   const contactById = await getContactById(contactId, userId);
   console.log(contactById);
   if (contactById === null) {
-    return next(createHttpError(404, 'Contact not found'));
-  }
-
-  if (contactById.userId.toString() !== req.user._id.toString()) {
     return next(createHttpError(403, 'Contact not allowed'));
   }
+
   res.status(200).json({
     status: 200,
     message: 'Successfully found contact!',
@@ -70,6 +67,7 @@ export async function createContactController(req, res) {
 
 export async function changeContactNameController(req, res, next) {
   const { contactId } = req.params;
+  const userId = req.user._id;
   const contact = {
     name: req.body.name,
     phoneNumber: req.body.phoneNumber,
@@ -78,17 +76,12 @@ export async function changeContactNameController(req, res, next) {
     contactType: req.body.contactType,
   };
 
-  const changeContact = await changeContactName(
-    contactId,
-    contact,
-    req.user._id,
-  );
+  const changeContact = await changeContactName(contactId, contact, userId);
+  console.log(contact);
   if (changeContact === null) {
-    return next(createHttpError(404, 'Contact not found'));
-  }
-  if (changeContact.userId.toString() !== req.user._id.toString()) {
     return next(createHttpError(403, 'Contact not allowed'));
   }
+
   res.status(200).json({
     status: 200,
     message: 'Successfully patched a contact!',
@@ -98,12 +91,11 @@ export async function changeContactNameController(req, res, next) {
 
 export async function deleteContactController(req, res, next) {
   const { contactId } = req.params;
-  const contact = await deleteContact(contactId);
+  const userId = req.user._id;
+  const contact = await deleteContact(contactId, userId);
   if (contact === null) {
-    return next(createHttpError(404, `Contact is not found`));
+    return next(createHttpError(403, `Contact is not allowed`));
   }
-  if (contact.userId.toString() !== req.user._id.toString()) {
-    return next(createHttpError(403, 'Contact not allowed'));
-  }
+
   res.status(204).send();
 }
