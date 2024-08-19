@@ -4,6 +4,7 @@ import {
   refreshUsersSession,
   logoutUser,
   requestResetToken,
+  resetPassword,
 } from '../services/auth.js';
 import { ACCESS_TOKEN_TTL, REFRESH_TOKEN_TTL } from '../constants/index.js';
 
@@ -21,6 +22,15 @@ export async function requestResetEmailController(req, res) {
   res.status(200).json({
     status: 200,
     message: 'Reset password email has been successfully sent.',
+    data: {},
+  });
+}
+
+export async function resetPasswordController(req, res) {
+  await resetPassword(req.body);
+  res.json({
+    message: 'Password has been successfully reset.',
+    status: 200,
     data: {},
   });
 }
