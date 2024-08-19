@@ -7,6 +7,7 @@ import { env } from '../src/utils/env.js';
 import router from './routers/index.js';
 import { errorHandler } from '../src/middlewares/errorHandler.js';
 import { notFoundHandler } from '../src/middlewares/notFoundHandler.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 const PORT = Number(env('PORT', 8080));
 
@@ -21,6 +22,7 @@ export function setupServer() {
       },
     }),
   );
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(router);
 
