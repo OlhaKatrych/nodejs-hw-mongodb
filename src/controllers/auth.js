@@ -3,6 +3,7 @@ import {
   loginUser,
   refreshUsersSession,
   logoutUser,
+  requestResetToken,
 } from '../services/auth.js';
 import { ACCESS_TOKEN_TTL, REFRESH_TOKEN_TTL } from '../constants/index.js';
 
@@ -15,6 +16,24 @@ export async function registerUserController(req, res) {
   });
 }
 
+export async function requestResetEmailController(req, res) {
+  await requestResetToken(req.body.email);
+  res.status(200).json({
+    status: 200,
+    message: 'Reset password email has been successfully sent.',
+    data: {},
+  });
+}
+export async function loginUserController(req, res) {
+  const session = await loginUser(req.body);
+  setupSession(res, session);
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully logged in an user!',
+    data: { accessToken: session.accessToken },
+  });
+}
+
 function setupSession(res, session) {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
@@ -23,16 +42,6 @@ function setupSession(res, session) {
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + REFRESH_TOKEN_TTL),
-  });
-}
-
-export async function loginUserController(req, res) {
-  const session = await loginUser(req.body);
-  setupSession(res, session);
-  res.status(200).json({
-    status: 200,
-    message: 'Successfully logged in an user!',
-    data: { accessToken: session.accessToken },
   });
 }
 
