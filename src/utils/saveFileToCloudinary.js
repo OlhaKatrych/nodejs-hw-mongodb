@@ -12,6 +12,9 @@ cloudinary.config({
 });
 
 export async function saveFileToCloudinary(file) {
+  if (!file) {
+    throw new Error('No file provided for upload');
+  }
   const response = await cloudinary.uploader.upload(file.path);
   await fs.unlink(file.path);
   return response.secure_url;
