@@ -12,7 +12,7 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: https://cloudinary-savg.onrender.com
+  - url: https://swagger-u0pt.onrender.com
 paths:
  /contacts:
   get:
