@@ -12,6 +12,7 @@ cloudinary.config({
 });
 
 export async function saveFileToCloudinary(file) {
+  console.log(file.filename);
   if (!file) {
     throw new Error('No file provided for upload');
   }

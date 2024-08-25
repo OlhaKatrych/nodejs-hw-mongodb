@@ -41,7 +41,7 @@ export async function getContactByIdController(req, res, next) {
   const contactById = await getContactById(contactId, userId);
   console.log(contactById);
   if (contactById === null) {
-    return next(createHttpError(403, 'Contact not allowed'));
+    return next(createHttpError(404, 'Contact not found'));
   }
 
   res.status(200).json({
@@ -94,7 +94,7 @@ export async function changeContactNameController(req, res, next) {
     userId,
   );
   if (changeContact === null) {
-    return next(createHttpError(403, 'Contact not allowed'));
+    return next(createHttpError(404, 'Contact not found'));
   }
 
   res.status(200).json({
@@ -109,7 +109,7 @@ export async function deleteContactController(req, res, next) {
   const userId = req.user._id;
   const contact = await deleteContact(contactId, userId);
   if (contact === null) {
-    return next(createHttpError(403, `Contact is not allowed`));
+    return next(createHttpError(404, `Contact  not found`));
   }
 
   res.status(204).send();
