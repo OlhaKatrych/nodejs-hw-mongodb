@@ -53,7 +53,6 @@ export async function getContactByIdController(req, res, next) {
 
 export async function createContactController(req, res) {
   const photo = req.file;
-  console.log(photo);
   let photoUrl;
   if (photo) {
     if (env('ENABLE_CLOUDINARY') === 'true') {
@@ -62,8 +61,10 @@ export async function createContactController(req, res) {
       photoUrl = await saveFileToUploadDir(photo);
     }
   }
+  console.log(req.user);
   const newContact = await createContact({
     ...req.body,
+    userId: req.user.id,
     photo: photoUrl,
   });
   res.status(201).json({
