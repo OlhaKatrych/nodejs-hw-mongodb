@@ -3,7 +3,9 @@ required:
   - _id
   - name
   - phoneNumber
+  - email
   - contactType
+  - isFavourite
 properties:
   _id:
     description: "Contacts's id"

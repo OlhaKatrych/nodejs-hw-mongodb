@@ -206,6 +206,16 @@
                       "personal"
                     ],
                     "example": "personal"
+                  },
+                  "userId": {
+                    "description": "Contacts's user id",
+                    "type": "string",
+                    "example": "66c320601321c32bdd5d59ed"
+                  },
+                  "photo": {
+                    "description": "Link to contacts's photo",
+                    "type": "string",
+                    "example": "https://res.cloudinary.com/dnqr5yhqk/image/upload/v1724074440/j1to99wtxvllstdq39kc.webp"
                   }
                 }
               }
@@ -365,6 +375,16 @@
                       "personal"
                     ],
                     "example": "personal"
+                  },
+                  "userId": {
+                    "description": "Contacts's user id",
+                    "type": "string",
+                    "example": "66c320601321c32bdd5d59ed"
+                  },
+                  "photo": {
+                    "description": "Link to contacts's photo",
+                    "type": "string",
+                    "example": "https://res.cloudinary.com/dnqr5yhqk/image/upload/v1724074440/j1to99wtxvllstdq39kc.webp"
                   }
                 }
               }
