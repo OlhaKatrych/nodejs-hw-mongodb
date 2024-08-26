@@ -474,7 +474,9 @@
           "_id",
           "name",
           "phoneNumber",
-          "contactType"
+          "email",
+          "contactType",
+          "isFavourite"
         ],
         "properties": {
           "_id": {
